@@ -29,16 +29,21 @@ This is a **console-based Movie Ticket Booking System** written in **C**, using 
 
 ## 📁 File Structure
 
-.
-├── movies.h            # All common structures and function declarations
-├── login.c/h           # Login, signup, and admin panel
-├── booking.c/h         # Booking, viewing, and canceling tickets
-├── search.c/h          # Search movies and seats
-├── validate.c/h        # Input validation
-├── file.c/h            # Save/load data from CSV files
-├── populate.c/h        # Initial dummy data
-├── editmovie.c/h       # Movie edit operations
-├── main.c              # Entry point (can be created if needed)
+| File             | Description                                 |
+|------------------|---------------------------------------------|
+| `main.c`         | Entry point of the Movie Ticket Booking System |
+| `movies.h`       | Common structures and global declarations   |
+| `login.c/h`      | Admin and User login/signup functionality   |
+| `booking.c/h`    | Booking, viewing, and canceling tickets     |
+| `search.c/h`     | Search movies and seat availability         |
+| `validate.c/h`   | Input validation for all user/admin input   |
+| `file.c/h`       | Save and load data using CSV file handling  |
+| `populate.c/h`   | Load dummy data (users and movies)          |
+| `editmovie.c/h`  | Functions to edit movie details             |
+| `movie.csv`      | Stores movie information (auto-generated)   |
+| `user.csv`       | Stores user credentials and bookings        |
+| `README.md`      | Project documentation and usage guide       |
+
 
 ---
 
