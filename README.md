@@ -44,7 +44,6 @@ This is a **console-based Movie Ticket Booking System** written in **C**, using 
 | `user.csv`       | Stores user credentials and bookings        |
 | `README.md`      | Project documentation and usage guide       |
 
-
 ---
 
 ## ⚙️ How to Compile & Run
