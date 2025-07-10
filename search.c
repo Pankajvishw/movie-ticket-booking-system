@@ -34,7 +34,7 @@ void viewShows(Booking *booking)
     printMovieHead();
     for(int i = 0; i < booking->movieCount; i++)
     {
-        printf("%-10d%-50s%-20s%20g%40d\n", booking->movies[i].movieId, booking->movies[i].movieName, booking->movies[i].time, booking->movies[i].price, booking->movies[i].available_seats);
+        printf("%-10d%-50s%-20s%20g%40d\n", i + 1, booking->movies[i].movieName, booking->movies[i].time, booking->movies[i].price, booking->movies[i].available_seats);
     }
     line();
 }

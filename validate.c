@@ -15,6 +15,11 @@
 #include <string.h>
 #include <ctype.h>
 
+int cmp(const void * a, const void * b)
+{
+    return *(int *) a - *(int *) b;
+}
+
 int validSeatNo(Booking *booking, int movieId, int seatNo) {
     int base = (movieId + 1) * 100;
     for (int j = 0; j < booking->movies[movieId].total_seats; j++) {
@@ -114,26 +119,21 @@ void changeLogin(Booking *booking, int userIndex) {
             printf("❌ Please enter a valid username (lowercase and numbers only)\n");
             continue;
         }
+        printf("🔑 New Password: ");
+        scanf(" %[^\n]", password);
 
-        if (usernameExists(booking, username)) {
-            printf("⚠️ Username already exists!\n");
+        if (strcmp(password, "0") == 0) {
+            printf("🔙 Going back to the previous menu...\n");
+            return;
+        }
+
+        if (validPassword(password)) {
+            strcpy(booking->user[userIndex].username, username);
+            strcpy(booking->user[userIndex].password, password);
+            printf("✅ Credentials changed successfully!\n");
+            return;
         } else {
-            printf("🔑 New Password: ");
-            scanf(" %[^\n]", password);
-
-            if (strcmp(password, "0") == 0) {
-                printf("🔙 Going back to the previous menu...\n");
-                return;
-            }
-
-            if (validPassword(password)) {
-                strcpy(booking->user[userIndex].username, username);
-                strcpy(booking->user[userIndex].password, password);
-                printf("✅ Credentials changed successfully!\n");
-                return;
-            } else {
-                printf("❌ Invalid password. Use only letters and digits (min 4 chars).\n");
-            }
+            printf("❌ Invalid password. Use only letters and digits (min 4 chars).\n");
         }
     } while (1);
 }

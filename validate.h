@@ -6,6 +6,7 @@
  *                usernames, passwords, movie names, seat numbers, etc.
  *
  *                Functions:
+ *                - int cmp()
  *                - valid_price()
  *                - valid_time()
  *                - valid_total_seat()
@@ -27,6 +28,7 @@
 
 #include "movies.h"
 
+int cmp(const void * a, const void * b);
 int valid_price(float price);
 int valid_time(char *time);
 int valid_total_seat(int seats);

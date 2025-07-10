@@ -58,7 +58,7 @@ void saveUserToFile(Booking *booking)
         }
         fprintf(fp, "}\n");
     }
-    booking->movieCount = 0;
+    booking->userCount = 0;
     fclose(fp);
 }
 

@@ -123,7 +123,7 @@ void userLogin(Booking *booking) {
     int choice;
     do {
         printf("\n🎬 ========== User Menu ========== 🎟️\n");
-        printf("1. View Available Bookings\n");
+        printf("1. View Available Movies\n");
         printf("2. Book Tickets\n");
         printf("3. View Booked Tickets\n");
         printf("4. Cancel Booking\n");
@@ -195,11 +195,11 @@ void adminLogin(Booking *booking) {
     int choice;
     do {
         printf("\n🎬 ========== Admin Menu ========== 🛠️\n");
-        printf("1. View Available Bookings\n");
+        printf("1. View Available Movies\n");
         printf("2. Add Movies\n");
         printf("3. Edit Movie Details\n");
         printf("4. Delete Listed Movies\n");
-        printf("5. View All Booked Tickets\n");
+        printf("5. View All Sold Tickets\n");
         printf("6. Sign out\n");
         printf("👉 Enter your choice: ");
         scanf("%d", &choice);

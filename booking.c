@@ -15,8 +15,9 @@
  *  Date        : 08-Jul-2025
  *
  ***********************************************************************/
+#include <stdlib.h>
 
- #include "booking.h"
+#include "booking.h"
 #include "validate.h"
 #include "search.h"
 
@@ -85,6 +86,7 @@ void bookTicket(Booking *booking, int userIndex)
                     printf("\n🚫 Invalid Seat No.\n");
                 }
             } while(1);
+            qsort(booking->user[userIndex].booked_seats, booking->user[userIndex].booked_seat_count, sizeof(int), cmp);
         }
         else
         {
@@ -99,7 +101,9 @@ int viewBookedTicket(Booking *booking, int userIndex)
     int k = 0;
     if (booking->user[userIndex].booked_seat_count == 0)
     {
-        printf("\nNo tickets booked yet.\n");
+        line();
+        printf("%50sNo Booked ticket Found..!\n", " ");
+        line();
         return 0;
     }
     int movieindex[booking->movieCount], ticketCount = 0, count = 1, totalseats;;
@@ -147,6 +151,13 @@ void removeUserSeat(Booking *booking, int userIndex, int seatIndex)
 
 void cancelTicket(Booking *booking, int userIndex)
 {
+    if (booking->user[userIndex].booked_seat_count == 0)
+    {
+        line();
+        printf("%50sNo Booked ticket Found..!\n", " ");
+        line();
+        return ;
+    }
     do
     {
         int count = booking->user[userIndex].booked_seat_count;
@@ -170,6 +181,7 @@ void cancelTicket(Booking *booking, int userIndex)
             else
             {
                 int seatNo, seatIndex = 0, flag = 0, i, j;
+                printf("Enter the seat No. : ");
                 scanf("%d", &seatNo);
                 seatNo = (movieIdArr[movieId - 1] + 1) * 100 + seatNo;
                 for(int i = 0; i < booking->user[userIndex].booked_seat_count; i++)
@@ -194,11 +206,6 @@ void cancelTicket(Booking *booking, int userIndex)
                     printf("ERROR : Invalid Seat No !\n");
                 }
             }
-        }
-        else
-        {
-            printf("No Movie Availabe.. Going Back\n");
-            return;
         }
     } while(1);
 }
