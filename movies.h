@@ -53,6 +53,7 @@ typedef struct User
     char password[20];
     int booked_seats[40];
     int booked_seat_count;
+    float bill;
 } User;
 
 typedef struct

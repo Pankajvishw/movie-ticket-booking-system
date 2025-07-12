@@ -34,6 +34,7 @@ int main()
         printf("4. Exit\n");
         printf("👉 Enter your choice: ");
         scanf(" %[^\n]", &choice);
+        getchar();
 
         switch (choice)
         {

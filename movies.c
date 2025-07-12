@@ -24,12 +24,12 @@
 
 void initialize(Booking *booking)
 {
-    booking->movieCount = 0, booking->userCount = 0;;
+    // booking->movieCount = 0, booking->userCount = 0;;
 	// populateMovies(booking);
     // populateUser(booking);
     loadMovieFromFile(booking);
     loadUserFromFile(booking);
-    populateSeatNo(booking);
+    // populateSeatNo(booking);
 }
 
 void addMovies(Booking * booking)

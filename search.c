@@ -25,7 +25,7 @@ void printMovieHead()
 void printBookedTicketHead()
 {
     line();
-    printf("%-10s%-50s%-20s%-40s\n", "S.No", "Movie Name", "Time", "Seat No.");
+    printf("%-10s%-50s%-15s%-15s%-40s\n", "S.No", "Movie Name", "Time", "Ammount", "Seat No.");
     line();
 }
 
@@ -34,19 +34,24 @@ void viewShows(Booking *booking)
     printMovieHead();
     for(int i = 0; i < booking->movieCount; i++)
     {
-        printf("%-10d%-50s%-20s%20g%40d\n", i + 1, booking->movies[i].movieName, booking->movies[i].time, booking->movies[i].price, booking->movies[i].available_seats);
+        printf("%-10d%-50s%-20s%20g%40d\n", booking->movies[i].movieId = i + 1, booking->movies[i].movieName, booking->movies[i].time, booking->movies[i].price, booking->movies[i].available_seats);
     }
+
     line();
 }
 
 void viewSeats(Booking *booking, int movieId) {
     int count = 0;
     line();
+    printf("%46s   ______________________________________\n", " ");
+    printf("%46s  /                                      \\\n", " ");
+    printf("%46s /                 SCREEN                 \\\n", " ");
+    printf("%46s/__________________________________________\\\n\n", " ");
     for (int i = 0; i < booking->movies[movieId].total_seats; i++) {
         if (booking->movies[movieId].seat_no[i] == -1) {
-            printf("%-15s", "Booked");
+            printf("%-15s", "[Booked]");
         } else {
-            printf("%-15d", booking->movies[movieId].seat_no[i] % 100);
+            printf("[%2s%-4d]%7s", " ", booking->movies[movieId].seat_no[i] % 100, " ");
         }
         count++;
         if (count % 10 == 0) {

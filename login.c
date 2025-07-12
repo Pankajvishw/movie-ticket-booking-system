@@ -27,6 +27,37 @@
 #include "login.h"
 #include "search.h"
 
+#include <termios.h>
+#include <unistd.h>
+
+void getPassword(char *password) {
+    struct termios oldt, newt;
+    int i = 0;
+    char ch;
+
+    // Turn off echoing
+    tcgetattr(STDIN_FILENO, &oldt);
+    newt = oldt;
+    newt.c_lflag &= ~(ECHO);
+    tcsetattr(STDIN_FILENO, TCSANOW, &newt);
+
+    while ((ch = getchar()) != '\n' && ch != EOF) {
+        if (ch == 127 || ch == '\b') {
+            if (i > 0) {
+                i--;
+                printf("\b \b");
+            }
+        } else if (i < 49) {
+            password[i++] = ch;
+            printf("*");
+        }
+    }
+    password[i] = '\0';
+
+    // Turn echoing back on
+    tcsetattr(STDIN_FILENO, TCSANOW, &oldt);
+}
+
 void signUp(Booking *booking) {
 
     if(booking->userCount > MAX_USERS)
@@ -39,7 +70,9 @@ void signUp(Booking *booking) {
 
     do {
         printf("👤 Username: ");
+        fflush(stdout);
         scanf(" %[^\n]", username);
+        getchar();
 
         if (strcmp(username, "0") == 0) {
             printf("🔙 Going back to the previous menu...\n");
@@ -55,7 +88,7 @@ void signUp(Booking *booking) {
             printf("❌ Username already exists!\n");
         } else {
             printf("🔑 Password: ");
-            scanf(" %[^\n]", password);
+            getPassword(password);
 
             if (strcmp(password, "0") == 0) {
                 printf("🔙 Going back to the previous menu...\n");
@@ -67,7 +100,7 @@ void signUp(Booking *booking) {
                 strcpy(booking->user[booking->userCount].password, password);
                 booking->user[booking->userCount].booked_seat_count = 0;
                 booking->userCount++;
-                printf("✅ User created successfully! %d %d %d\n",booking->user[booking->userCount].booked_seat_count, booking->user[booking->userCount].booked_seats[39], booking->userCount);
+                printf("\n✅ User created successfully!\n");
                 return;
             }
         }
@@ -83,6 +116,7 @@ void userLogin(Booking *booking) {
     do {
         printf("👤 Username: ");
         scanf(" %[^\n]", username);
+        getchar();
 
         if (strcmp(username, "0") == 0) {
             printf("🔙 Going back to the previous menu...\n");
@@ -100,7 +134,8 @@ void userLogin(Booking *booking) {
             userIndex -= 1;
 
             printf("🔑 Password: ");
-            scanf(" %[^\n]", password);
+            fflush(stdout);
+            getPassword(password);
 
             if (strcmp(password, "0") == 0) {
                 printf("🔙 Going back to the previous menu...\n");
@@ -177,6 +212,8 @@ void adminLogin(Booking *booking) {
         }
 
         printf("🔑 Password: ");
+        // char ch;
+        // while((ch = fgetc(stdin, ch)))
         scanf(" %[^\n]", password);
 
         if (strcmp(password, "0") == 0) {

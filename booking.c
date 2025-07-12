@@ -24,7 +24,6 @@
 void bookTicket(Booking *booking, int userIndex)
 {
     int movieId, seatNo;
-    printf("✅ User created successfully! %d %d\n",userIndex, booking->userCount);
     do
     {
         printf("\n%40s==================== Available Movies ====================\n", " ");
@@ -73,6 +72,7 @@ void bookTicket(Booking *booking, int userIndex)
                         printf("Seat No. %d is booked.\n", seatNo % 100);
                         booking->movies[movieId].seat_no[seatIndex] = -1;
                         booking->user[userIndex].booked_seats[booking->user[userIndex].booked_seat_count] = seatNo;
+                        booking->user[userIndex].bill += booking->movies[movieId].price;
                         booking->movies[movieId].available_seats--;
                         booking->user[userIndex].booked_seat_count++;
                     }
@@ -121,7 +121,7 @@ int viewBookedTicket(Booking *booking, int userIndex)
     { 
         if(movieindex[i] != -1)
         {
-            printf("%-10d%-50s%-20s", count, booking->movies[i].movieName, booking->movies[i].time);
+            printf("%-10d%-50s%-15s%-15.2f", count, booking->movies[i].movieName, booking->movies[i].time, booking->user[userIndex].bill);
             
             movieIdArr[k++] = i;
             for(int k = 0 ; k < booking->user[userIndex].booked_seat_count; k++)
@@ -199,6 +199,7 @@ void cancelTicket(Booking *booking, int userIndex)
                     booking->movies[seatNo / 100 - 1].available_seats++;
                     
                     removeUserSeat(booking, userIndex, seatIndex);
+                    booking->user[userIndex].bill -= booking->movies[movieId - 1].price;
                     printf("Seat No : %d cancelled !\n", seatNo % 100);             
                 }
                 else
